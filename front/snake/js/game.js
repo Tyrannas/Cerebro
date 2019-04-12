@@ -30,6 +30,30 @@ export default class Game extends GameObject {
 					body: [
 						{x: 20, y: 12},
 						{x: 21, y: 12},
+						{x: 22, y: 12}
+					]
+				}
+			]
+		})
+		this.callbackGameState({
+			world: {
+				width: 50,
+				height: 20
+			},
+			players: [
+				{
+					name: 'alexis',
+					body: [
+						{x: 11, y: 10},
+						{x: 11, y: 11},
+						{x: 11, y: 12},
+						{x: 11, y: 13}
+					]
+				},{
+					name: 'felix',
+					body: [
+						{x: 20, y: 12},
+						{x: 21, y: 12},
 						{x: 22, y: 12},
 						{x: 23, y: 12},
 						{x: 24, y: 12}
@@ -56,13 +80,12 @@ export default class Game extends GameObject {
 			const name = player.name
 			playersName.add(name)
 
-			let playerGameObject = this.playersGameObject[name]
-			if(!playerGameObject) {
-				playerGameObject = new Player()
-				this.addChild(playerGameObject)
+			if(!this.playersGameObject[name]) {
+				this.playersGameObject[name] = new Player()
+				this.addChild(this.playersGameObject[name])
 			}
 
-			playerGameObject.updatePlayer(player)
+			this.playersGameObject[name].updatePlayer(player)
 		}
 
 		// Clear dead players
