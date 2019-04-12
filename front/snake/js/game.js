@@ -62,7 +62,7 @@ export default class Game extends GameObject {
 				this.addChild(playerGameObject)
 			}
 
-			playerGameObject.updateBody(player.body)
+			playerGameObject.updatePlayer(player)
 		}
 
 		// Clear dead players
