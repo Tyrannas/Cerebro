@@ -8,6 +8,7 @@ class Core {
 		this.players = new Set();
 		this.inputs = {};
 		this.server = io.listen(port);
+		console.log('listening on port: ' + port);
 	}
 
 	onConnect(player) {
@@ -29,11 +30,11 @@ class Core {
 	}
 
 	start() {
-		this.server.on('connection', this.onConnect);
+		this.server.on('connection', this.onConnect.bind(this));
 		while (true) {
 			generateNewState();
 		}
 	}
 }
 
-module.exports.Core;
+module.exports = Core;
