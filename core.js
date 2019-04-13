@@ -32,7 +32,7 @@ class Core {
 		setInterval(() => {
 			this.inputs = {};
 			this.generateNewState.bind(this);
-		}, tickDuration);
+		}, this.tickDuration);
 	}
 }
 
