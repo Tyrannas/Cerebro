@@ -9,6 +9,7 @@ class Core {
 		this.inputs = {};
 		this.server = io.listen(port);
 		console.log('listening on port: ' + port);
+		this.start();
 	}
 
 	onConnect(player) {
@@ -21,19 +22,17 @@ class Core {
 	}
 
 	generateNewState() {
-		// wait for all players input during tick duration
-		//TODO : gérer les ticks
-
 		const newState = this.transformFunction(this.state, this.inputs);
-		this.server.broadCast('update', newState);
+		this.server.broadcast.emit('update', newState);
 		this.state = newState;
 	}
 
 	start() {
 		this.server.on('connection', this.onConnect.bind(this));
-		while (true) {
-			generateNewState();
-		}
+		setInterval(() => {
+			this.inputs = {};
+			this.generateNewState.bind(this);
+		}, tickDuration);
 	}
 }
 
