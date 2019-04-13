@@ -1,6 +1,6 @@
 const io = require('socket.io');
 
-class Core {
+class Cerebro {
 	constructor(initialState, transformFunction, defaultAction = undefined, tickDuration = 500, port = 1234) {
 		this.transformFunction = transformFunction;
 		this.defaultAction = defaultAction;
@@ -22,8 +22,9 @@ class Core {
 	}
 
 	generateNewState() {
+		console.log('on genere un new state')
 		const newState = this.transformFunction(this.state, this.inputs);
-		this.server.broadcast.emit('update', newState);
+		this.server.emit('update', newState);
 		this.state = newState;
 	}
 
@@ -31,9 +32,9 @@ class Core {
 		this.server.on('connection', this.onConnect.bind(this));
 		setInterval(() => {
 			this.inputs = {};
-			this.generateNewState.bind(this);
+			this.generateNewState();
 		}, this.tickDuration);
 	}
 }
 
-module.exports = Core;
+module.exports = Cerebro;
