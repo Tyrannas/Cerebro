@@ -1,6 +1,6 @@
-import { Black, AssetManager, GameObject } from 'black-engine'
-import { TILE_SIZE } from './game'
+import { GameObject } from 'black-engine'
 import Players from './players';
+import Dots from './dots';
 
 export default class World extends GameObject {
 	constructor() {
@@ -9,7 +9,10 @@ export default class World extends GameObject {
 
 	onAdded() {
 		this.players = new Players()
-        this.add(this.players)
+		this.add(this.players)
+
+		this.dots = new Dots()
+        this.add(this.dots)
 		
 		// doesnt work now
         this.on('playerSummary', playerSummary => {
@@ -18,7 +21,7 @@ export default class World extends GameObject {
 	}
 
 	callbackGameState(gameState) {
-        // Manage players
-		this.players.updatePlayers(gameState.players)		
+		this.players.updatePlayers(gameState.players)
+		this.dots.updateDots(gameState.dots)
 	}
 }
