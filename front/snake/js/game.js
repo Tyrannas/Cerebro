@@ -1,16 +1,24 @@
 import { Black, AssetManager, GameObject } from 'black-engine'
-import Player from './player'
+import World from './world';
 
 const TILE_SIZE = 32
+
+function tilePosToStagePos(pos) {
+	return {
+		x: (pos.x + 0.5) * TILE_SIZE,
+		y: (pos.y + 0.5) * TILE_SIZE
+	}
+}
 
 export default class Game extends GameObject {
 	constructor() {
 		super()
-
-		this.playersGameObject = {}
 	}
 
 	onAdded() {
+		this.world = new World()
+		this.add(this.world)
+
 		this.callbackGameState({
 			world: {
 				width: 50,
@@ -64,41 +72,18 @@ export default class Game extends GameObject {
 	}
 
 	callbackGameState(gameState) {
-
-		// Manage world
-		const world = gameState.world
-		const width = world.width * TILE_SIZE
-		const height = world.height * TILE_SIZE
-		// if(Black.stage.width !== width || Black.stage.height !== height) { // does not work
-		console.log(Black.stage)
-		Black.stage.setSize(width, height)
-		// }
-
-		// Manage players
-		const playersName = new Set()
-		for(const player of gameState.players) {
-			const name = player.name
-			playersName.add(name)
-
-			if(!this.playersGameObject[name]) {
-				this.playersGameObject[name] = new Player()
-				this.addChild(this.playersGameObject[name])
-			}
-
-			this.playersGameObject[name].updatePlayer(player)
-		}
-
-		// Clear dead players
-		for(const name in this.playersGameObject) {
-			if(!playersName.has(name)) {
-				this.removeChild(this.playersGameObject[name])
-				delete this.playersGameObject[name]
-			}
-		}
 		
+		// Resize stage
+		const width = gameState.world.width * TILE_SIZE
+		const height = gameState.world.height * TILE_SIZE
+		Black.stage.setSize(width, height)
+
+		// Update world
+		this.world.callbackGameState(gameState)
 	}
 }
 
 export {
-	TILE_SIZE
+	TILE_SIZE,
+	tilePosToStagePos
 }
