@@ -15,7 +15,7 @@ class Cerebro {
 	onConnect(player) {
 		console.info(`Client connected [id=${player.id}]`);
 		this.players.add(player.id);
-		this.state[players] = []
+		this.state.players[player.id] = {}
 		player.on('input', (data) => {
 			this.inputs[player.id] = data;
 		});
