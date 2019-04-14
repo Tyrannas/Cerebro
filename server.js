@@ -6,4 +6,11 @@ const dummy = (state, data) => {
 	return data;
 };
 
-const c = new Cerebro({width: 80, height: 50, dots:[], players:{}}, transform, 2500);
+const c = new Cerebro({
+	world: {
+		width: 80,
+		height: 50
+	},
+	dots: [],
+	players: {}
+}, transform, 2500);

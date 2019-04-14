@@ -5,7 +5,6 @@ class Cerebro {
 		this.transformFunction = transformFunction;
 		this.tickDuration = tickDuration;
 		this.state = initialState;
-		this.players = new Set();
 		this.inputs = {};
 		this.server = io.listen(port);
 		console.log('listening on port: ' + port);
@@ -14,10 +13,13 @@ class Cerebro {
 
 	onConnect(player) {
 		console.info(`Client connected [id=${player.id}]`);
-		this.players.add(player.id);
+		
 		this.state.players[player.id] = {}
 		player.on('input', (data) => {
 			this.inputs[player.id] = data;
+		});
+		player.on('disconnect', () => {
+			delete this.state.players[player.id]
 		});
 	}
 

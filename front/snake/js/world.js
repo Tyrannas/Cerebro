@@ -9,7 +9,12 @@ export default class World extends GameObject {
 
 	onAdded() {
 		this.players = new Players()
-		this.add(this.players)
+        this.add(this.players)
+		
+		// doesnt work now
+        this.on('playerSummary', playerSummary => {
+            console.log(playerSummary)
+        })
 	}
 
 	callbackGameState(gameState) {

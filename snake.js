@@ -3,8 +3,10 @@ const _ = require('lodash')
 /***
 State de la forme:
 {
-	width: int,
-	height: int,
+	world: {
+		width: int,
+		height: int
+	},
 	players: {
 		id: {
 			name: string
@@ -28,7 +30,7 @@ const DIRECTIONS = {
 }
 
 function posToIndex(state, pos) {
-	return pos.y * state.width + pos.x
+	return pos.y * state.world.width + pos.x
 }
 
 function findFreeSpot(state){
@@ -43,10 +45,10 @@ function findFreeSpot(state){
 		busySpots.add(posToIndex(state, dot.pos))
 	}
 
-	const x_seed = _.random(0, state.width-1)
-	const y_seed = _.random(0, state.height-1)
-	for(let y = y_seed; y < state.height; y++) {
-		for(let x = x_seed; x < state.width; x++) {
+	const x_seed = _.random(0, state.world.width-1)
+	const y_seed = _.random(0, state.world.height-1)
+	for(let y = y_seed; y < state.world.height; y++) {
+		for(let x = x_seed; x < state.world.width; x++) {
 			const pos = {x, y}
 			if(!busySpots.has(posToIndex(state, pos))) {
 				return pos
@@ -127,7 +129,7 @@ function transformState(state, inputs){
 		const head = player.body[0]
 
 		// Collision with the walls
-		if(head.x >= state.width || head.y >= state.height || head.x < 0 || head.y < 0) {
+		if(head.x >= state.world.width || head.y >= state.world.height || head.x < 0 || head.y < 0) {
 			playersToInit.add(id)
 			continue
 		}

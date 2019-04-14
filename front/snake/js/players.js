@@ -41,8 +41,7 @@ export default class Players extends GameObject {
 
 		// Manage players
 		const playersName = new Set()
-		for(const player of players) {
-			const name = player.name
+		for(const [name, player] of Object.entries(players)) {
 			playersName.add(name)
 
 			if(!this.playersGameObject[name]) {
@@ -60,5 +59,15 @@ export default class Players extends GameObject {
 				delete this.playersGameObject[name]
 			}
 		}
+
+		// Players summary
+		const playerSummary = Object.entries(this.playersGameObject).map(([name, gameObject]) => {
+			return {
+				name,
+				headColor: gameObject.headColor,
+				bodyColor: gameObject.bodyColor
+			}
+		})
+		this.post('playerSummary', playerSummary)
 	}
 }
