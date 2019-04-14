@@ -21,7 +21,7 @@ class Player extends GameObject {
 		g.clear()
 
 		for(let i = 0; i < player.body.length; i++) {
-			const pos = tilePosToStagePos(player.body[i])
+			const pos = tilePosToStagePos(player.body[i], 0.05)
 			g.beginPath()
 			g.roundedRect(pos.x, pos.y, TILE_SIZE*0.9, TILE_SIZE*0.9, TILE_SIZE/5)
 			g.fillStyle(i === 0 ? this.headColor : this.bodyColor)

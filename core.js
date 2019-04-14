@@ -27,7 +27,6 @@ class Cerebro {
 		this.inputs = {};
 		this.state = this.transformFunction(this.state, this.inputs);
 		this.server.emit('update', this.state);
-		console.log(this.state)
 	}
 
 	start() {

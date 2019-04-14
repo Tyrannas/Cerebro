@@ -4,10 +4,10 @@ import World from './world';
 
 const TILE_SIZE = 32
 
-function tilePosToStagePos(pos) {
+function tilePosToStagePos(pos, offset=0) {
 	return {
-		x: (pos.x + 0.5) * TILE_SIZE,
-		y: (pos.y + 0.5) * TILE_SIZE
+		x: (pos.x + offset) * TILE_SIZE,
+		y: (pos.y + offset) * TILE_SIZE
 	}
 }
 

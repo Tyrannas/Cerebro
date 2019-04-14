@@ -111,9 +111,10 @@ function transformState(state, inputs){
 
 		// Find collision with dot
 		let eatDot = false
-		for(const dot of state.dots) {
-			if(body[0].x === dot.x && body[0].y === dot.y) {
-				state.dots.splice(index, 1)
+		for(let i = 0; i < state.dots.length; i++) {
+			const dot = state.dots[i]
+			if(body[0].x === dot.pos.x && body[0].y === dot.pos.y) {
+				state.dots.splice(i, 1)
 				eatDot = true
 				break
 			}
@@ -156,7 +157,8 @@ function transformState(state, inputs){
 		}
 	})
 
-	for(i = 0; i < Object.keys(state.players).length - state.dots.length; i++){
+	const nbDotsToAdd = Object.keys(state.players).length - state.dots.length + (state.extraDots || 0)
+	for(i = 0; i < nbDotsToAdd; i++) {
 		state.dots.push({
 			pos: findFreeSpot(state)
 		})

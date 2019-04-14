@@ -17,7 +17,7 @@ class Dot extends GameObject {
 		const g = this.g
 
 		g.clear()
-		const pos = tilePosToStagePos(dot.pos)
+		const pos = tilePosToStagePos(dot.pos, 0.5)
 		g.beginPath()
 		g.circle(pos.x, pos.y, TILE_SIZE*0.45)
 		g.fillStyle(this.color)

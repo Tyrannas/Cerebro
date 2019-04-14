@@ -8,9 +8,10 @@ const dummy = (state, data) => {
 
 const c = new Cerebro({
 	world: {
-		width: 80,
-		height: 50
+		width: 20,
+		height: 15
 	},
+	extraDots: 100,
 	dots: [],
 	players: {}
 }, transform, 2500);
