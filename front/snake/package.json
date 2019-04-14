@@ -56,6 +56,7 @@
     "watchify": "^3.11.1"
   },
   "dependencies": {
-    "black-engine": "^0.5.9"
+    "black-engine": "^0.5.9",
+    "randomcolor": "^0.5.4"
   }
 }

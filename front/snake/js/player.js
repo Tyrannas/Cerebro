@@ -1,4 +1,5 @@
 import { Graphics, GameObject, TextField } from 'black-engine'
+import { getRandomColor } from './utils'
 import { TILE_SIZE } from './game'
 
 export default class Player extends GameObject {
@@ -6,8 +7,8 @@ export default class Player extends GameObject {
 		super()
 
 		this.textFields = []
-		this.headColor = parseInt((Math.random()*0xFFFFFF<<0).toString(16), 16)
-		this.bodyColor = parseInt((Math.random()*0xFFFFFF<<0).toString(16), 16)
+		this.headColor = getRandomColor('bright')
+		this.bodyColor = getRandomColor('dark')
 	}
 
 	onAdded() {
