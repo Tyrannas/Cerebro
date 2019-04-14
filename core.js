@@ -3,6 +3,7 @@ const io = require('socket.io');
 class Cerebro {
 	constructor(initialState, transformFunction, tickDuration = 500, port = 1234) {
 		this.transformFunction = transformFunction;
+		this.tickDuration = tickDuration;
 		this.state = initialState;
 		this.players = new Set();
 		this.inputs = {};
@@ -22,10 +23,9 @@ class Cerebro {
 
 	generateNewState() {
 		this.inputs = {};
-		console.log('on genere un new state' + this.tickDuration)
-		const newState = this.transformFunction(this.state, this.inputs);
-		this.server.emit('update', newState);
-		this.state = newState;
+		this.state = this.transformFunction(this.state, this.inputs);
+		this.server.emit('update', this.state);
+		console.log(this.state)
 	}
 
 	start() {
