@@ -134,7 +134,7 @@ function transformState(state, inputs){
 		// Collision with the walls
 		if(head.x >= state.world.width || head.y >= state.world.height || head.x < 0 || head.y < 0) {
 			player.body = []
-			break
+			continue
 		}
 
 		// Collision with others players
@@ -142,10 +142,10 @@ function transformState(state, inputs){
 			if(player.name === player2.name) {
 				continue
 			}
-			for(const part of player.body) {
+			for(const part of player2.body) {
 				if(head.x === part.x && head.y === part.y) {
 					player.body = []
-					break checkCollision
+					continue checkCollision
 				}
 			}
 		}
