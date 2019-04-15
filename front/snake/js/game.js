@@ -1,4 +1,4 @@
-import { Black, AssetManager, GameObject } from 'black-engine'
+import { Black, AssetManager, GameObject, Graphics } from 'black-engine'
 import io from 'socket.io-client'
 import World from './world';
 
@@ -17,6 +17,9 @@ export default class Game extends GameObject {
 	}
 
 	onAdded() {
+		this.g = new Graphics()
+		this.add(this.g)
+
 		this.world = new World()
 		this.add(this.world)
 
@@ -33,6 +36,15 @@ export default class Game extends GameObject {
 		const width = gameState.world.width * TILE_SIZE
 		const height = gameState.world.height * TILE_SIZE
 		Black.stage.setSize(width, height)
+
+		// Draw walls
+		const g = this.g
+		g.clear()
+		g.beginPath();
+		const size = TILE_SIZE*0.1
+		g.lineStyle(size, 0x999999);
+		g.rect(size/2, size/2, width-size, height-size);
+		g.stroke();
 
 		// Update world
 		this.world.callbackGameState(gameState)
