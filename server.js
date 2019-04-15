@@ -6,12 +6,16 @@ const dummy = (state, data) => {
 	return data;
 };
 
-const c = new Cerebro({
-	world: {
-		width: 20,
-		height: 15
+const c = new Cerebro(
+	{
+		world: {
+			width: 20,
+			height: 15
+		},
+		extraDots: 2,
+		dots: [],
+		players: []
 	},
-	extraDots: 2,
-	dots: [],
-	players: []
-}, transform, 500);
+	transform,
+	100
+);
