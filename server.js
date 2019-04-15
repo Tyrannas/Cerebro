@@ -13,5 +13,5 @@ const c = new Cerebro({
 	},
 	extraDots: 100,
 	dots: [],
-	players: {}
+	players: []
 }, transform, 2500);

@@ -41,7 +41,8 @@ export default class Players extends GameObject {
 
 		// Manage players
 		const playersName = new Set()
-		for(const [name, player] of Object.entries(players)) {
+		for(const player of players) {
+			const name = player.name
 			playersName.add(name)
 
 			if(!this.playersGameObject[name]) {

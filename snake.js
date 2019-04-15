@@ -36,7 +36,7 @@ function posToIndex(state, pos) {
 function findFreeSpot(state){
 	const busySpots = new Set()
 
-	for (const player of Object.values(state.players)) {
+	for (const player of state.players) {
 		for(const pos of player.body) {
 			busySpots.add(posToIndex(state, pos))
 		}
@@ -79,20 +79,17 @@ function computeDirection(blocks){
 function transformState(state, inputs){
 	state = _.cloneDeep(state)
 
-	const playersToInit = new Set()
-
-	for (const [id, player] of Object.entries(state.players)) {
-		// Manage new players
+	for (const player of state.players) {
+		// Create empty body for new players
   		if(!player.body) {
-			playersToInit.add(id)
-			delete state.players[id]
+			player.body = []
 			continue
 		}
 		
 		// Update positions
 		const body = player.body
 
-		let playerDir = inputs[id]
+		let playerDir = inputs[player.name]
 		if(!playerDir || !DIRECTIONS[playerDir]) {
 			playerDir = 'RIGHT'
 		}
@@ -126,36 +123,40 @@ function transformState(state, inputs){
 	}
 
 	// Check for collisions
-	for (const [id, player] of Object.entries(state.players)) {
+	checkCollision: for (const player of state.players) {
+		// Exclude empty players
+  		if(player.body.length === 0) {
+			continue
+		}
+
 		const head = player.body[0]
 
 		// Collision with the walls
 		if(head.x >= state.world.width || head.y >= state.world.height || head.x < 0 || head.y < 0) {
-			playersToInit.add(id)
-			continue
+			player.body = []
+			break
 		}
 
 		// Collision with others players
-		for (const [id2, player2] of Object.entries(state.players)) {
-			if(id === id2) {
+		for (const player2 of state.players) {
+			if(player.name === player2.name) {
 				continue
 			}
 			for(const part of player.body) {
 				if(head.x === part.x && head.y === part.y) {
-					playersToInit.add(id)
-					break
+					player.body = []
+					break checkCollision
 				}
 			}
 		}
 	}
 
-	// Update players to init
-	playersToInit.forEach(playerId => {
-		state.players[playerId] = {
-			name: playerId, // TODO get name
-			body: [findFreeSpot(state)]
+	// Set body to empty players
+	for (const player of state.players) {
+  		if(player.body.length === 0) {
+			player.body.push(findFreeSpot(state))
 		}
-	})
+	}
 
 	const nbDotsToAdd = Object.keys(state.players).length - state.dots.length + (state.extraDots || 0)
 	for(i = 0; i < nbDotsToAdd; i++) {
