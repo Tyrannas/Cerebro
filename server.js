@@ -11,7 +11,7 @@ const c = new Cerebro({
 		width: 20,
 		height: 15
 	},
-	extraDots: 100,
+	extraDots: 2,
 	dots: [],
 	players: []
-}, transform, 2500);
+}, transform, 500);
