@@ -6,8 +6,7 @@ class Player extends GameObject {
 	constructor() {
 		super()
 
-		this.headColor = getRandomColor('bright')
-		this.bodyColor = getRandomColor('dark')
+		this.color = getRandomColor('dark')
 	}
 
 	onAdded() {
@@ -21,12 +20,24 @@ class Player extends GameObject {
 		g.clear()
 
 		for(let i = 0; i < player.body.length; i++) {
-			const pos = tilePosToStagePos(player.body[i], 0.05)
+			const offset = Math.min(5, i) * 0.03
+			const pos = tilePosToStagePos(player.body[i], offset)
 			g.beginPath()
-			g.roundedRect(pos.x, pos.y, TILE_SIZE*0.9, TILE_SIZE*0.9, TILE_SIZE/5)
-			g.fillStyle(i === 0 ? this.headColor : this.bodyColor)
+			g.roundedRect(pos.x, pos.y, TILE_SIZE*(1-2*offset), TILE_SIZE*(1-2*offset), TILE_SIZE/5)
+			g.fillStyle(this.color)
 			g.fill()
 		}
+
+		g.beginPath()
+		for(let i = 0; i < player.body.length; i++) {
+			const pos = tilePosToStagePos(player.body[i], 0.5)
+			if(i === 0) {
+				g.moveTo(pos.x, pos.y);
+			}
+			g.lineTo(pos.x, pos.y)
+		}
+		g.lineStyle(TILE_SIZE*0.5, this.color)
+		g.stroke()
 	}
 }
 
@@ -65,8 +76,7 @@ export default class Players extends GameObject {
 		const playerSummary = Object.entries(this.playersGameObject).map(([name, gameObject]) => {
 			return {
 				name,
-				headColor: gameObject.headColor,
-				bodyColor: gameObject.bodyColor
+				color: gameObject.color
 			}
 		})
 		this.post('playerSummary', playerSummary)
