@@ -8,11 +8,8 @@ export default class World extends GameObject {
 	}
 
 	onAdded() {
-		this.players = new Players()
-		this.add(this.players)
-
-		this.dots = new Dots()
-        this.add(this.dots)
+		this.players = this.addChild(new Players())
+        this.dots = this.addChild(new Dots())
 		
 		// doesnt work now
         this.on('playerSummary', playerSummary => {

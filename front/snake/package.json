@@ -1,11 +1,12 @@
 {
-  "name": "black-template",
+  "name": "ai-battle-snake-front",
   "version": "1.0.0",
-  "description": "Starting point for Black powered apps.",
-  "main": "gulpfile.js",
+  "description": "AI Battle - Snake front client",
+  "main": "src/main.js",
+  "sideEffects": false,
   "scripts": {
-    "start": "gulp",
-    "bundle": "gulp build:prod"
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -18,45 +19,16 @@
   },
   "homepage": "https://blacksmith2d.io",
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-concat": "^1.0.3",
-    "babel-core": "^6.5.2",
-    "babel-plugin-root-import": "^6.1.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "babel-root-slash-import": "^1.1.0",
-    "babelify": "^8.0.0",
-    "browser-sync": "^2.18.12",
-    "browserify": "^16.2.2",
-    "del": "^3.0.0",
-    "enumify": "^1.0.4",
-    "espree": "^4.0.0",
-    "google-closure-compiler": "^20180610.0.2",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.1",
-    "gulp-plumber": "^1.1.0",
-    "gulp-preprocess": "^3.0.2",
-    "gulp-rename": "^1.3.0",
-    "gulp-replace": "^1.0.0",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-template": "^5.0.0",
-    "gulp-util": "^3.0.8",
-    "gulp-watch": "^5.0.0",
-    "plumber": "^0.4.8",
-    "preprocessify": "^1.0.1",
-    "rocambole": "^0.7.0",
-    "rocambole-node-remove": "^2.0.0",
-    "rocambole-node-update": "^2.0.0",
-    "rocambole-token": "^1.2.1",
-    "run-sequence": "^2.2.1",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^2.0.0",
-    "watchify": "^3.11.1"
+    "clean-webpack-plugin": "^2.0.1",
+    "copy-webpack-plugin": "^5.0.2",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.3.1",
+    "webpack-merge": "^4.2.1"
   },
   "dependencies": {
     "black-engine": "^0.5.9",
-    "randomcolor": "^0.5.4"
+    "randomcolor": "^0.5.4",
+    "socket.io-client": "^2.2.0"
   }
 }

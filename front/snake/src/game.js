@@ -1,5 +1,4 @@
 import { Black, AssetManager, GameObject, Graphics } from 'black-engine'
-import io from 'socket.io-client'
 import World from './world';
 
 const TILE_SIZE = 32
@@ -17,17 +16,8 @@ export default class Game extends GameObject {
 	}
 
 	onAdded() {
-		this.g = new Graphics()
-		this.add(this.g)
-
-		this.world = new World()
-		this.add(this.world)
-
-		const socket = io.connect('http://localhost:1234')
-		socket.on('update', data => {
-			console.log(data)
-			this.callbackGameState(data)
-		})
+		this.g = this.addChild(new Graphics())
+		this.world = this.addChild(new World())
 	}
 
 	callbackGameState(gameState) {

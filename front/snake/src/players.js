@@ -50,7 +50,7 @@ export default class Players extends GameObject {
 
 	updatePlayers(players) {
 
-		// Manage players
+		// // Manage players
 		const playersName = new Set()
 		for(const player of players) {
 			const name = player.name
