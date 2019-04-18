@@ -2,7 +2,7 @@ const _ = require('lodash')
 const io = require('socket.io')
 
 class Cerebro {
-	constructor(initialState, transformFunction, tickDuration = 500, port = 1234) {
+	constructor(initialState, transformFunction, tickDuration = 500, port = 42000) {
 		this.transformFunction = transformFunction
 		this.tickDuration = tickDuration
 		this.state = initialState
@@ -14,7 +14,7 @@ class Cerebro {
 
 	onConnect(player) {
 		console.info(`Client connected [id=${player.id}]`)
-		player.on('name', (name) => {
+		player.once('name', (name) => {
 			console.info(`Player connected: ${name}`)
 
 			// Manage conflicts names
@@ -45,7 +45,10 @@ class Cerebro {
 			
 			// When the player disconnects, remove it from state
 			player.on('disconnect', () => {
-				this.state.players.splice(this._getPlayerIndex(name), 1)
+				const index = this._getPlayerIndex(name);
+				if(index >= 0) {
+					this.state.players.splice(this._getPlayerIndex(name), 1)
+				}
 			})
 		})
 	}

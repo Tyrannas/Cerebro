@@ -17,7 +17,7 @@ black.start()
 // Makes stage always centered
 black.stage.scaleMode = StageScaleMode.LETTERBOX
 
-const socket = io.connect('http://' + window.location.hostname + ':1234')
+const socket = io.connect('http://' + window.location.hostname + ':42000')
 socket.on('update', data => {
     console.log(data)
     Black.instance.mGameObject.callbackGameState(data)

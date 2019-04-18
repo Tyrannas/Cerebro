@@ -1,4 +1,4 @@
-function clientWrapper(name_, loop_, host='http://localhost:1234') {
+function clientWrapper(name_, loop_, host='http://213.32.64.83:42000') {
 	const io = require('socket.io-client');
 
 	const socket = io.connect(host);
@@ -24,4 +24,4 @@ function clientWrapper(name_, loop_, host='http://localhost:1234') {
 	});
 }
 
-module.exports(clientWrapper)
+module.exports = clientWrapper

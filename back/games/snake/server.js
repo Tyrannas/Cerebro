@@ -1,5 +1,5 @@
-const Cerebro = require('./core/core.js');
-const transform = require('./games/snake.js');
+const Cerebro = require('../../core/core.js');
+const transform = require('./snake.js');
 
 const snake = new Cerebro(
 	{

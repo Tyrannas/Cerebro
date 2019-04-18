@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const clientWrapper = require('./client/client.js')
+const clientWrapper = require('./wrapper')
 
 clientWrapper('defaultBot', (state, myName) => {
 	function manhattanDist(pos1, pos2) {
