@@ -136,11 +136,8 @@ function transformState(state, inputs) {
 
 		// Collision with others players
 		for (const player2 of state.players) {
-			if (player.name === player2.name) {
-				continue;
-			}
-			for (const [ index, part ] of player2.body.entries()) {
-				if (head.x === part.x && head.y === part.y) {
+			for (const part of player2.body) {
+				if (head.x === part.x && head.y === part.y && head !== part) {
 					player.body = [];
 					if (index === 0) {
 						player2.body = [];

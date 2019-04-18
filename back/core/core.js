@@ -47,7 +47,7 @@ class Cerebro {
 			player.on('disconnect', () => {
 				const index = this._getPlayerIndex(name);
 				if(index >= 0) {
-					this.state.players.splice(this._getPlayerIndex(name), 1)
+					this.state.players.splice(index, 1)
 				}
 			})
 		})

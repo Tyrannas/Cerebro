@@ -17,8 +17,6 @@ module.exports = {
   },{
     name: 'snake-bots',
     script: 'clientTemplate/defaultBot.js',
-
-    // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
     instances: 1,
     autorestart: true,
     watch: false,

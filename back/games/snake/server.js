@@ -4,8 +4,8 @@ const transform = require('./snake.js');
 const snake = new Cerebro(
 	{
 		world: {
-			width: 20,
-			height: 15
+			width: 60,
+			height: 35
 		},
 		extraDots: 2,
 		dots: [],
