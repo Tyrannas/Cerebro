@@ -139,9 +139,6 @@ function transformState(state, inputs) {
 			for (const part of player2.body) {
 				if (head.x === part.x && head.y === part.y && head !== part) {
 					player.body = [];
-					if (index === 0) {
-						player2.body = [];
-					}
 					continue checkCollision;
 				}
 			}
