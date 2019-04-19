@@ -1,11 +1,20 @@
+const fs = require('fs')
 const _ = require('lodash')
 const io = require('socket.io')
 
 class Cerebro {
-	constructor(initialState, transformFunction, tickDuration = 500, port = 42000) {
+	constructor(initialState, transformFunction, {
+		tickDuration = 500,
+		port = 42000,
+		saveName = 'default',
+		saveDuration = 10000
+	}) {
+		this.saveFileName = saveName + '.save'
+		this.saveDuration = saveDuration
+		this.state = this.getSave(initialState)
+
 		this.transformFunction = transformFunction
 		this.tickDuration = tickDuration
-		this.state = initialState
 		this.inputs = {}
 		this.server = io.listen(port)
 		console.log('listening on port: ' + port)
@@ -45,7 +54,7 @@ class Cerebro {
 			
 			// When the player disconnects, remove it from state
 			player.on('disconnect', () => {
-				const index = this._getPlayerIndex(name);
+				const index = this._getPlayerIndex(name)
 				if(index >= 0) {
 					this.state.players.splice(index, 1)
 				}
@@ -62,10 +71,23 @@ class Cerebro {
 	start() {
 		this.server.on('connection', this.onConnect.bind(this))
 		setInterval(() => this.generateNewState(), this.tickDuration)
+		setInterval(() => this.save(), this.saveDuration)
 	}
 
 	_getPlayerIndex(name) {
 		return _.findIndex(this.state.players, { name })
+	}
+
+	getSave(defaultSave) {
+		try {
+			return JSON.parse(fs.readFileSync(this.saveFileName).toString())
+		} catch {
+			return defaultSave
+		}
+	}
+
+	save() {
+		fs.writeFileSync(this.saveFileName, JSON.stringify(this.state))
 	}
 }
 
