@@ -19,3 +19,8 @@ const snake = new Cerebro(
 		}
 	}
 );
+
+process.on('SIGINT', function() {
+	snake.save();
+	process.exit(0);
+});
