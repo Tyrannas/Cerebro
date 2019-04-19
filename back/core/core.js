@@ -39,22 +39,23 @@ class Cerebro {
 				while(true) {
 					cnt++
 					const newName = name + ' (' + cnt + ')'
-					if(this._getPlayerIndex(newName) < 0) {
+					if(!this.mapPlayers[name]) {
 						name = newName
 						break
 					}
 				}
-			} else {
-				this.mapPlayers[name] = player.id
 			}
+			this.mapPlayers[name] = player.id
 			
 			// Send player its name
 			player.emit('name', name)
 			
 			// Add player to state
-			this.state.players.push({
-				name
-			})
+			if(this._getPlayerIndex(name) < 0) {
+				this.state.players.push({
+					name
+				})
+			}
 
 			// When an input is received, put it in states object
 			player.on('input', (data) => {
@@ -72,6 +73,7 @@ class Cerebro {
 			
 			// When the player disconnects, remove it from state
 			player.on('disconnect', () => {
+				console.log('disconnect')
 				this.removePlayer(name)
 			})
 		})
@@ -80,6 +82,7 @@ class Cerebro {
 	generateNewState() {
 		// Remove all players that does not send input
 		for(const name of this.playersToWait) {
+			console.log('cant wait')
 			this.removePlayer(name)
 		}
 
@@ -101,6 +104,7 @@ class Cerebro {
 	start() {
 		this.mapPlayers = {}
 		this.server.on('connection', this.onConnect.bind(this))
+		// Let 3s to players to reconnect
 		setTimeout(() => {
 			this.generateNewState()
 			this.save()
