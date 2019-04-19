@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 function clientWrapper(name_, loop_, host='http://213.32.64.83:42000') {
 	const io = require('socket.io-client');
 
@@ -17,6 +19,10 @@ function clientWrapper(name_, loop_, host='http://213.32.64.83:42000') {
 	socket.on('update', (state) => {
 		// Not in the game
 		if (!myName) {
+			return;
+		}
+		const me = _.find(state.players, { name: myName })
+		if(!me) {
 			return;
 		}
 

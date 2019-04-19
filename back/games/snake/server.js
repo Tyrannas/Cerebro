@@ -3,15 +3,19 @@ const transform = require('./snake.js');
 
 const snake = new Cerebro(
 	{
-		world: {
-			width: 60,
-			height: 35
-		},
-		extraDots: 2,
 		dots: [],
 		players: [],
 		score: {}
 	},
 	transform,
-	100
+	{
+		// Options
+		forceState: {
+			world: {
+				width: 60,
+				height: 42
+			},
+			extraDots: 2
+		}
+	}
 );
