@@ -34,7 +34,7 @@ class Cerebro {
 			console.info(`Player connected: ${name}`)
 
 			// Manage conflicts names
-			if(this._getPlayerIndex(name) >= 0) {
+			if(this.mapPlayers[name]) {
 				let cnt = 1
 				while(true) {
 					cnt++
@@ -44,6 +44,8 @@ class Cerebro {
 						break
 					}
 				}
+			} else {
+				this.mapPlayers[name] = player.id
 			}
 			
 			// Send player its name
@@ -97,6 +99,8 @@ class Cerebro {
 	}
 
 	start() {
+		this.mapPlayers = {}
+
 		this.generateNewState()
 		this.save()
 		this.server.on('connection', this.onConnect.bind(this))
@@ -104,6 +108,7 @@ class Cerebro {
 	}
 
 	removePlayer(name) {
+		delete this.mapPlayers[name]
 		this.playersToWait.delete(name)
 		const index = this._getPlayerIndex(name)
 		if(index >= 0) {
