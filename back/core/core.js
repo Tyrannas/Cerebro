@@ -100,11 +100,12 @@ class Cerebro {
 
 	start() {
 		this.mapPlayers = {}
-
-		this.generateNewState()
-		this.save()
 		this.server.on('connection', this.onConnect.bind(this))
-		setInterval(() => this.save(), this.saveDuration)
+		setTimeout(() => {
+			this.generateNewState()
+			this.save()
+			setInterval(() => this.save(), this.saveDuration)
+		}, 3000);
 	}
 
 	removePlayer(name) {
