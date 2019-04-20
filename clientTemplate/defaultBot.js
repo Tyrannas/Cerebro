@@ -24,7 +24,6 @@ function getPosWithDir(pos, dir) {
 }
 
 clientWrapper('defaultBot', (state, myName) => {
-
 	// Find me
 	const me = _.find(state.players, { name: myName });
 	const body = me.body;
