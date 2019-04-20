@@ -163,6 +163,10 @@ function transformState(state, inputs) {
 		}
 	}
 
+	// Manage dots
+	state.dots = _.filter(state.dots, dot => {
+		return dot.pos.x < state.world.width && dot.pos.y < state.world.height;
+	});
 	const nbDotsToAdd = Object.keys(state.players).length - state.dots.length + (state.extraDots || 0);
 	for (i = 0; i < nbDotsToAdd; i++) {
 		state.dots.push({

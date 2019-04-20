@@ -73,7 +73,7 @@ class Cerebro {
 			
 			// When the player disconnects, remove it from state
 			player.on('disconnect', () => {
-				this.removePlayer(name)
+				delete this.mapPlayers[name];
 			})
 		})
 	}
