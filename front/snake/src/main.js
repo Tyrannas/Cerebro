@@ -35,13 +35,15 @@ socket.on('update', data => {
     // Update scores view
     const playersUnsorted = []
     for(const player of data.players) {
-        const { best, current } = data.scores[player.name]
+        const { best, current, history } = data.scores[player.name]
         const { name } = player
         playersUnsorted.push({
             best,
             current,
             name,
-            color: '#' + _.padStart(player.color.toString(16), 6, '0')
+            color: '#' + _.padStart(player.color.toString(16), 6, '0'),
+            avgLength: history.length,
+            avg: _.mean(history)
         })
     }
     const players = _.sortBy(playersUnsorted, player => -player.best)

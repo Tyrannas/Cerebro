@@ -173,10 +173,17 @@ function transformState(state, inputs) {
 	// Compute scores
 	for (const player of state.players) {
 		const current = player.body.length
+		const last = _.get(state.scores, [player.name, 'current'], current)
 		const best = _.get(state.scores, [player.name, 'best'], 0)
+		let history = _.get(state.scores, [player.name, 'history'], [])
+		if(current < last) {
+			// just died
+			history.push(last);
+		}
 		state.scores[player.name] = {
 			current,
-			best: Math.max(best, current)
+			best: Math.max(best, current),
+			history: history.slice(-10)
 		}
 	}
 
