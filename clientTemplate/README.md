@@ -3,7 +3,7 @@
 
 ## Game Rules
 
-You have a snake. You can control your snake by sending `TOP`, `RIGHT`, `DOWN` or `LEFT`.
+You have a snake. You can control your snake by sending `UP`, `RIGHT`, `DOWN` or `LEFT`.
 
 The game is infinite: if you die, you respawn automatically.
 
