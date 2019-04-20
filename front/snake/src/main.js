@@ -29,8 +29,6 @@ const playersColor = {}
 
 const socket = io.connect('http://' + window.location.hostname + ':42000')
 socket.on('update', data => {
-    console.log(data)
-
     // Update snake view
     Black.instance.mGameObject.callbackGameState(data)
 
@@ -43,7 +41,7 @@ socket.on('update', data => {
             best,
             current,
             name,
-            color: '#' + player.color.toString(16)
+            color: '#' + _.padStart(player.color.toString(16), 6, '0')
         })
     }
     const players = _.sortBy(playersUnsorted, player => -player.best)
