@@ -1,12 +1,9 @@
 import { Graphics, GameObject, TextField } from 'black-engine'
-import { getRandomColor } from './utils'
 import { TILE_SIZE, tilePosToStagePos } from './game'
 
 class Player extends GameObject {
 	constructor() {
 		super()
-
-		this.color = getRandomColor('dark')
 	}
 
 	onAdded() {
@@ -24,7 +21,7 @@ class Player extends GameObject {
 			const pos = tilePosToStagePos(player.body[i], offset)
 			g.beginPath()
 			g.roundedRect(pos.x, pos.y, TILE_SIZE*(1-2*offset), TILE_SIZE*(1-2*offset), TILE_SIZE/5)
-			g.fillStyle(this.color)
+			g.fillStyle(player.color)
 			g.fill()
 		}
 
@@ -36,7 +33,7 @@ class Player extends GameObject {
 			}
 			g.lineTo(pos.x, pos.y)
 		}
-		g.lineStyle(TILE_SIZE*0.5, this.color)
+		g.lineStyle(TILE_SIZE*0.5, player.color)
 		g.stroke()
 	}
 }

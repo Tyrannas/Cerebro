@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "lodash": "^4.17.11",
+    "randomcolor": "^0.5.4",
     "socket.io": "^2.2.0"
   }
 }

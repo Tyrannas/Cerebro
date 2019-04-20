@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "black-engine": "^0.5.9",
-    "randomcolor": "^0.5.4",
+    "mustache": "^3.0.1",
     "socket.io-client": "^2.2.0"
   }
 }

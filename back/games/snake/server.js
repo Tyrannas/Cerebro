@@ -5,7 +5,7 @@ const snake = new Cerebro(
 	{
 		dots: [],
 		players: [],
-		score: {}
+		scores: {}
 	},
 	transform,
 	{

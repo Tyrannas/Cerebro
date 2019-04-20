@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const randomColor = require('randomcolor')
 
 /***
 State de la forme:
@@ -21,6 +22,11 @@ State de la forme:
 	// TODO add walls
 }
 ***/
+
+function getRandomColor() {
+	const rgb = randomColor({ luminosity: 'dark', format: 'rgbArray' })
+	return rgb[0] * 256*256 + rgb[1] * 256 + rgb[2]
+}
 
 const DIRECTIONS = {
 	UP: { name: 'UP', opposite: 'DOWN', x: 0, y: -1 },
@@ -76,6 +82,11 @@ function transformState(state, inputs) {
 	state = _.cloneDeep(state);
 
 	for (const player of state.players) {
+		// Init color
+		if (!player.color) {
+			player.color = getRandomColor();
+		}
+
 		// Create empty body for new players
 		if (!player.body) {
 			player.body = [];
@@ -157,6 +168,16 @@ function transformState(state, inputs) {
 		state.dots.push({
 			pos: findFreeSpot(state)
 		});
+	}
+
+	// Compute scores
+	for (const player of state.players) {
+		const current = player.body.length
+		const best = _.get(state.scores, [player.name, 'best'], 0)
+		state.scores[player.name] = {
+			current,
+			best: Math.max(best, current)
+		}
 	}
 
 	return state;

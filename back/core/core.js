@@ -13,7 +13,7 @@ class Cerebro {
 	}) {
 		this.saveFileName = saveName + '.save'
 		this.saveDuration = saveDuration
-		this.state = _.assign(this.getSave(initialState), forceState)
+		this.state = _.assign(initialState, this.getSave(initialState), forceState)
 
 		this.transformFunction = transformFunction
 		
@@ -39,7 +39,7 @@ class Cerebro {
 				while(true) {
 					cnt++
 					const newName = name + ' (' + cnt + ')'
-					if(!this.mapPlayers[name]) {
+					if(!this.mapPlayers[newName]) {
 						name = newName
 						break
 					}
@@ -73,7 +73,6 @@ class Cerebro {
 			
 			// When the player disconnects, remove it from state
 			player.on('disconnect', () => {
-				console.log('disconnect')
 				this.removePlayer(name)
 			})
 		})
@@ -82,7 +81,6 @@ class Cerebro {
 	generateNewState() {
 		// Remove all players that does not send input
 		for(const name of this.playersToWait) {
-			console.log('cant wait')
 			this.removePlayer(name)
 		}
 
