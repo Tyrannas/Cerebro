@@ -43,7 +43,8 @@ socket.on('update', data => {
             name,
             color: '#' + _.padStart(player.color.toString(16), 6, '0'),
             avgLength: history.length,
-            avg: _.mean(history)
+            avg: history.length > 0 ? _.mean(history) : '-',
+            last: history.length > 0 ? history[history.length - 1] : '-'
         })
     }
     const players = _.sortBy(playersUnsorted, player => -player.best)
