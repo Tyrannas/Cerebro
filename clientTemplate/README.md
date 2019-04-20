@@ -1,5 +1,7 @@
 
-# Game Rules
+# AI Battle - Snake
+
+## Game Rules
 
 You have a snake. You can control your snake by sending `TOP`, `RIGHT`, `DOWN` or `LEFT`.
 
@@ -11,15 +13,15 @@ Tick duration currently varies from 100ms to 1000ms. If all players have sent th
 a game tick automatically occured, with a minimum of 100ms. If the server have been waiting for 1000ms, the player
 is killed for inactivity.
 
-# Dev
+## Dev
 
-## The server
+### The server
 
-The UI is available at http://213.32.64.83:42080/
+The UI is available at http://213.32.64.83:42080/ .
 
 The webscoket server is listening at `213.32.64.83:42000`.
 
-## How to dev
+### How to dev
 
 First, you need to install dependencies with `npm install`.
 
@@ -31,8 +33,8 @@ Then just run:
 And that's it. You will be able to see your bot and the UI.
 
 #### --inspect
-Note: The `--inspect` parameter allow you to debug easier. In Google Chrome, got to chrome://inspect to debug your bot.
+Note: The `--inspect` parameter allow you to debug easier. In Google Chrome, go to `chrome://inspect` to debug your bot.
 
-## How to deploy
+### How to deploy
 
 TODO
