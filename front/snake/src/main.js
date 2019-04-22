@@ -1,4 +1,4 @@
-import { Black, CanvasDriver, StageScaleMode, Input } from 'black-engine'
+import { Black, CanvasDriver, StageScaleMode, Input, Renderer } from 'black-engine'
 import io from 'socket.io-client'
 import Mustache from 'mustache'
 import _ from 'lodash'
@@ -19,6 +19,8 @@ black.start()
 
 // Makes stage always centered
 black.stage.scaleMode = StageScaleMode.LETTERBOX
+
+Renderer.skipUnchangedFrames = true
 
 // Generate template
 const template = document.getElementById('templateScores').innerHTML
