@@ -28,12 +28,9 @@ First, you need to install dependencies with `npm install`.
 In this folder, you have `minimal.js` from which you can start your bot. Inside, modify `YOUR_NAME` by a string containing your pseudo.
 Then just run:
 
-̀```node --inspect minimal.js```
+```node minimal.js```
 
-And that's it. You will be able to see your bot and the UI.
-
-#### --inspect
-Note: The `--inspect` parameter allow you to debug easier. In Google Chrome, go to `chrome://inspect` to debug your bot.
+And that's it. You will be able to see your bot and the UI. You can also use `defaultBot.js` as a base code.
 
 ### How to deploy
 
